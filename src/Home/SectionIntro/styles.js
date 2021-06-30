@@ -1,5 +1,10 @@
-import { makeStyles } from '@materil-ui/core';
+import { makeStyles } from "@material-ui/core";
 
-const styles = makeStyles (() => ({}));
+const styles = makeStyles(() => ({
+	icon: {
+		fontSize: 50,
+		color: "rgb(63, 81, 181)",
+	},
+}));
 
 export default styles;
