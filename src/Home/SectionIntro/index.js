@@ -1,15 +1,46 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import LayersIcon from "@material-ui/icons/Layers";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import CodeIcon from "@material-ui/icons/Code";
-import { Title, Body, Subtitle } from "../../components/Text";
-import Icon from "../../components/Icon";
+import { Title, Body, Subtitle } from "../../Components/Text";
+import Icon from "../../Components/Icon";
 import styles from "./styles";
 
 const SectionIntro = () => {
 	const classes = styles();
+
+		const [posts, setPosts] = useState([]);
+
+	useEffect (() => {
+		buscarDadosBanco();
+	}, [])
+	
+	const buscarDadosBanco = () => {
+	  const dados = [
+		{
+		 icone: <LayersIcon className={classes.icon} />,
+		 titulo: "Build accessible React apps with speed", 
+		 texto: "Build a beautiful, modern website with flexible, fully customizable, atomic Material UI components.",
+		},
+		{
+		 icone: <FavoriteIcon className={classes.icon} />,
+		 titulo: "Built for developers", 
+		 texto: "TheFront is built to make your life easier. Variables, build tooling, documentation, and reusable components.",
+		},
+		{
+		icone: <CodeIcon className={classes.icon} />,
+		 titulo: "Documentation for everything", 
+		 texto: "We've written extensive documentation for components and tools, so you never have to reverse engineer anything.",
+		},
+	  ];
+
+
+	  setPosts(dados);
+	};
+
+
 	return (
 		<Container maxWidth="lg">
 			<Grid container justify="center">
@@ -26,32 +57,14 @@ const SectionIntro = () => {
 			</Grid>
 
 			<Grid container justify="center" spacing={8}>
+			 {posts.map((item) => (
 				<Grid item md={4}>
-					<Icon component={<LayersIcon className={classes.icon} />} />
-					<Subtitle text="Built for developers" />
-					<Body
-						text="TheFront is built to make your life easier. Variables, build tooling, documentation, and reusable components."
-						style={{ color: "#718096" }}
-					/>
+					<Icon component={item.icone} />
+					<Subtitle text={item.titulo} />
+					<Body text={item.texto}	style={{ color: "#718096" }} />
 				</Grid>
-				<Grid item md={4}>
-					<Icon
-						component={<FavoriteIcon className={classes.icon} />}
-					/>
-					<Subtitle text="Designed to be modern" />
-					<Body
-						text="Designed with the latest design trends in mind. TheFront feels modern, minimal, and beautiful."
-						style={{ color: "#718096" }}
-					/>
-				</Grid>
-				<Grid item md={4}>
-					<Icon component={<CodeIcon className={classes.icon} />} />
-					<Subtitle text="Documentation for everything" />
-					<Body
-						text="We've written extensive documentation for components and tools, so you never have to reverse engineer anything."
-						style={{ color: "#718096" }}
-					/>
-				</Grid>
+				))}
+				
 			</Grid>
 		</Container>
 	);
